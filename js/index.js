@@ -20,7 +20,7 @@ function getCurrentDate(){
     const date= new Date();
     const isUS = navigator.language === 'en-US';
     if (isUS){
-        return (date.getMonth()+1).toString().padStart(2, '0') + date.getDate().toString().padStart(2, '0') + "/" + date.getFullYear();   
+        return (date.getMonth()+1).toString().padStart(2, '0')+ "/"  + date.getDate().toString().padStart(2, '0') + "/" + date.getFullYear();   
     }
     return date.getDate().toString().padStart(2, '0') + "/" + (date.getMonth()+1).toString().padStart(2, '0') + "/" + date.getFullYear();
 }
