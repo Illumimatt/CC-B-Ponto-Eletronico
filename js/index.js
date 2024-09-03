@@ -2,30 +2,49 @@ const diaSemana = document.getElementById("dia-semana");
 const diaMesAno = document.getElementById("dia-mes-ano");
 const horaMinSeg = document.getElementById("hora-min-seg");
 
-diaSemana.textContent=getCurrentDay();
-diaMesAno.textContent= getCurrentDate();
-horaMinSeg.textContent= getCurrentHour();
+diaSemana.textContent = getCurrentDay();
+diaMesAno.textContent = getCurrentDate();
+updateCurrentHour();
+setInterval(updateCurrentHour, 1000);
 
-function getCurrentDay(){
-    const dia= new Date();
+const btnBaterPonto = document.getElementById("btn-bater-ponto");
+btnBaterPonto.addEventListener("click", register);
+
+const dialogPonto = document.getElementById("dialog-ponto");
+
+const btnDialogFechar = document.getElementById("btn-dialog-fechar");
+btnDialogFechar.addEventListener("click", () => {
+    dialogPonto.close();
+});
+
+function getCurrentDay() {
+    const dia = new Date();
     const DiasSemana = [
-        "Domingo", "Segunda", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sabado"
+        "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"
     ];
     
     const DiaIndex = dia.getDay();
     return DiasSemana[DiaIndex]; 
 }
 
-function getCurrentDate(){ 
-    const date= new Date();
+function getCurrentDate() { 
+    const date = new Date();
     const isUS = navigator.language === 'en-US';
-    if (isUS){
-        return (date.getMonth()+1).toString().padStart(2, '0')+ "/"  + date.getDate().toString().padStart(2, '0') + "/" + date.getFullYear();   
+    if (isUS) {
+        return (date.getMonth() + 1).toString().padStart(2, '0') + "/" +
+            date.getDate().toString().padStart(2, '0') + "/" + date.getFullYear();   
     }
-    return date.getDate().toString().padStart(2, '0') + "/" + (date.getMonth()+1).toString().padStart(2, '0') + "/" + date.getFullYear();
+    return date.getDate().toString().padStart(2, '0') + "/" +
+        (date.getMonth() + 1).toString().padStart(2, '0') + "/" + date.getFullYear();
 }
 
-function getCurrentHour(){
+function updateCurrentHour() {
     const hms = new Date();
-    return hms.getHours().toString().padStart(2, '0') + ":" + hms.getMinutes().toString().padStart(2, '0') + ":" + hms.getSeconds().toString().padStart(2, '0');
+    horaMinSeg.textContent = hms.getHours().toString().padStart(2, '0') + ":" +
+        hms.getMinutes().toString().padStart(2, '0') + ":" +
+        hms.getSeconds().toString().padStart(2, '0');
+}
+
+function register(){
+    dialogPonto.showModal();
 }
