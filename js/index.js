@@ -7,6 +7,13 @@ diaMesAno.textContent = getCurrentDate();
 updateCurrentHour();
 setInterval(updateCurrentHour, 1000);
 
+const modalData = document.getElementById("modal-data");
+const modalHora = document.getElementById("modal-hora");
+
+modalData.textContent = getCurrentDate();
+updateCurrentHourModal();
+setInterval(updateCurrentHourModal, 1000);
+
 const btnBaterPonto = document.getElementById("btn-bater-ponto");
 btnBaterPonto.addEventListener("click", register);
 
@@ -22,7 +29,6 @@ function getCurrentDay() {
     const DiasSemana = [
         "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"
     ];
-    
     const DiaIndex = dia.getDay();
     return DiasSemana[DiaIndex]; 
 }
@@ -41,6 +47,13 @@ function getCurrentDate() {
 function updateCurrentHour() {
     const hms = new Date();
     horaMinSeg.textContent = hms.getHours().toString().padStart(2, '0') + ":" +
+        hms.getMinutes().toString().padStart(2, '0') + ":" +
+        hms.getSeconds().toString().padStart(2, '0');
+}
+
+function updateCurrentHourModal() {
+    const hms = new Date();
+    modalHora.textContent = hms.getHours().toString().padStart(2, '0') + ":" +
         hms.getMinutes().toString().padStart(2, '0') + ":" +
         hms.getSeconds().toString().padStart(2, '0');
 }
