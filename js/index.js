@@ -29,6 +29,12 @@ btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
 });
 
+const btnDialogBaterPonto = document.getElementById("btn-dialog-bater-ponto");
+btnDialogBaterPonto.addEventListener("click",() => {
+
+    
+});
+
 function getCurrentDay() {
     const dia = new Date();
     const DiasSemana = [
