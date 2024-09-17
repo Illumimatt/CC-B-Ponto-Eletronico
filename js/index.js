@@ -1,3 +1,20 @@
+function updateCurrentHour() {
+    const hms = new Date();
+    return hms.getHours().toString().padStart(2, '0') + ":" +
+        hms.getMinutes().toString().padStart(2, '0') + ":" +
+        hms.getSeconds().toString().padStart(2, '0');
+}
+
+function updateCurrentHourDisplay() {
+    const currentHour = updateCurrentHour();
+    horaMinSeg.textContent = currentHour;
+}
+
+function updateCurrentHourModal() {
+    const currentHour = updateCurrentHour();
+    dialogHora.textContent = currentHour;
+}
+
 let registerLocalStorage = getRegisterLocalStorage();
 
 const diaSemana = document.getElementById("dia-semana");
@@ -6,8 +23,8 @@ const horaMinSeg = document.getElementById("hora-min-seg");
 
 diaSemana.textContent = getCurrentDay();
 diaMesAno.textContent = getCurrentDate();
-updateCurrentHour();
-setInterval(updateCurrentHour, 1000);
+updateCurrentHourDisplay();
+setInterval(updateCurrentHourDisplay, 1000);
 
 const dialogData = document.getElementById("dialog-data");
 const dialogHora = document.getElementById("dialog-hora");
@@ -26,66 +43,58 @@ btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
 });
 
-// TO-DO:
-// Por que esta função não retorna a localização?
-// [doc]
 function getCurrentPosition() {
-    navigator.geolocation.getCurrentPosition((position) => {
-        return position;
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
     });
 }
 
-
 const btnDialogBaterPonto = document.getElementById("btn-dialog-bater-ponto");
-btnDialogBaterPonto.addEventListener("click", () => {
+btnDialogBaterPonto.addEventListener("click", async () => {
+    try {
+        let typeRegister = document.getElementById("tipos-ponto").value;
 
-    let typeRegister = document.getElementById("tipos-ponto").value;
+        const position = await getCurrentPosition();
 
-    let ponto = {
-        "data": getCurrentDate(),
-        "hora": getCurrentHour(),
-        "localizacao": getCurrentPosition(),
-        "id": 1,
-        "tipo": typeRegister
+        let ponto = {
+            "data": getCurrentDate(),
+            "hora": updateCurrentHour(),
+            "localizacao": {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            },
+            "id": 1,
+            "tipo": typeRegister
+        };
+
+        console.log(ponto);
+
+        saveRegisterLocalStorage(ponto);
+
+        localStorage.setItem("lastTypeRegister", typeRegister);
+
+        dialogPonto.close();
+    } catch (error) {
+        console.error("Erro ao obter a localização:", error);
     }
-
-    console.log(ponto);
-
-    saveRegisterLocalStorage(ponto);
-
-    localStorage.setItem("lastTypeRegister", typeRegister);
-
-    dialogPonto.close();
-
-    // TO-DO:
-    // Fechar o dialog ao bater ponto e apresentar, de alguma forma
-    // uma confirmação (ou não) para o usuário
 });
 
-
 function saveRegisterLocalStorage(register) {
-    registerLocalStorage.push(register); // Array
+    registerLocalStorage.push(register);
     localStorage.setItem("register", JSON.stringify(registerLocalStorage));
 } 
 
-
-// Esta função deve retornar sempre um ARRAY, mesmo que seja vazio
 function getRegisterLocalStorage() {
     let registers = localStorage.getItem("register");
-
     if(!registers) {
         return [];
     }
-
-    return JSON.parse(registers); // converte de JSON para Array
+    return JSON.parse(registers);
 }
 
-
 function register() {
-    // TO-DO:
-    // Atualizar hora a cada segundo e data 00:00:00
     dialogData.textContent = "Data: " + getCurrentDate();
-    dialogHora.textContent = "Hora: " + getCurrentHour();
+    dialogHora.textContent = "Hora: " + updateCurrentHour();
     dialogPonto.showModal();
 }
 
@@ -107,22 +116,4 @@ function getCurrentDate() {
     }
     return date.getDate().toString().padStart(2, '0') + "/" +
         (date.getMonth() + 1).toString().padStart(2, '0') + "/" + date.getFullYear();
-}
-
-function updateCurrentHour() {
-    const hms = new Date();
-    horaMinSeg.textContent = hms.getHours().toString().padStart(2, '0') + ":" +
-        hms.getMinutes().toString().padStart(2, '0') + ":" +
-        hms.getSeconds().toString().padStart(2, '0');
-}
-
-function updateCurrentHourModal() {
-    const hms = new Date();
-    dialogHora.textContent = hms.getHours().toString().padStart(2, '0') + ":" +
-        hms.getMinutes().toString().padStart(2, '0') + ":" +
-        hms.getSeconds().toString().padStart(2, '0');
-}
-
-function register(){
-    dialogPonto.showModal();
 }

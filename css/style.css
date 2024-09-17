@@ -1,8 +1,27 @@
-.data-hora{
+.data-hora {
     text-align: center;
 }
+
 #btn-dialog-fechar {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+#alerta-registro-ponto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: pink;
+}
+
+/* TO-DO: */
+/* Adicionar código CSS para alterar a opacidade */
+.hidden {
+    opacity: 0;
+}
+
+.show {
+    opacity: 1;
 }
