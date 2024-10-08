@@ -1,93 +1,5 @@
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #55009f;
-    color: #000000;
-}
-
 .data-hora {
     text-align: center;
-    color: #ae00ff;
-}
-
-#btn-dialog-bater-ponto {
-    background-color: #ae00ff;
-    color: #000000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 15px; 
-    cursor: pointer; 
-    transition: background-color 0.3s; 
-}
-
-#btn-bater-ponto {
-    background-color: #ae00ff;;
-    color: #000000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 15px; 
-    cursor: pointer; 
-    transition: background-color 0.3s; 
-}
-
-#div-btn-bater-ponto {
-    text-align: center;
-}
-
-.data-hora, 
-#alerta-registro-ponto, 
-#div-btn-bater-ponto,
-dialog {
-    text-align: center; /* Centraliza o texto dos elementos */
-}
-
-#btn-bater-ponto:hover {
-    background-color: #ae00ff;
-}
-
-#alerta-registro-ponto {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #ae00ff;
-    color: #4a4a4a;
-    text-align: center;
-    padding: 10px;
-    border-bottom: 2px solid #f28e9b;
-}
-
-#div-tipos-ponto {
-    font-size: 19px;
-    margin-top: 20px;
-}
-
-#dialog-ponto {
-    font-size: 18px;
-    border: 2px solid #ae00ff;
-    border-radius: 10px;
-}
-
-#btn-dialog-fechar {
-    border: 2px solid #ae00ff;
-    border-radius: 5px;
-    color: #000000;
-    background-color: #9105d1;
-}
-
-select {
-    padding: 10px;
-    border: 2px solid #ae00ff;
-    border-radius: 10px;
-    background-color: #fff;
-    font-size: 15px;
 }
 
 #btn-dialog-fechar {
@@ -96,12 +8,83 @@ select {
     right: 0;
 }
 
-/* TO-DO: */
+#alerta-registro-ponto {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(250, 0, 229);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+#alerta-registro-ponto p {
+    text-align: center;
+    color: white;
+    font-size: 1.1rem;
+}
+
+#alerta-registro-ponto-fechar {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
 .hidden {
     opacity: 0;
+    transform: translateY(20px);
 }
 
 .show {
     opacity: 1;
+    transform: translateY(0);
+}
+
+#div-btn-bater-ponto {
+    text-align: center;
+}
+
+#btn-bater-ponto {
+    padding: 20px;
+    background-color: rgb(250, 0, 229);
+    color: white;
+    font-size: 1.3rem;
+    border: 0px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+#btn-bater-ponto:hover {
+    background-color: rgb(200, 0, 200); 
+}
+
+.data-hora p {
+    font-size: 2rem; 
+}
+
+#dialog-ponto {
+    border-radius: 10px;
+}
+
+#dialog-ponto p {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+#dialog-ponto select {
+    padding: 20px;
+    font-size: 1.3rem;
+    border-radius: 10px;
+}
+
+#btn-dialog-bater-ponto {
+    padding: 20px;
+    font-size: 1.3rem;
+    color: white;
+    background-color: rgb(250, 0, 229); 
+    border-radius: 10px;
+}
+
+#btn-dialog-bater-ponto:hover {
+    background-color: rgb(200, 0, 200); 
 }
